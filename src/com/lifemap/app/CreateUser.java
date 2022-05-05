@@ -30,29 +30,19 @@ public class CreateUser {
 			
 			// start a transaction
 			session.beginTransaction();
-						
-			// create a course
-			/*Course tempCourse = new Course("Pacman - How To Score One Million Points");
-						
-			// save the course
-			System.out.println("\nSaving the course ...");
-			session.save(tempCourse);
-			System.out.println("Saved the course: " + tempCourse);*/
 			
-			// create the students
-			Users tempUser1 = new Users("John", "John");
-			Users tempUser2 = new Users("Jane", "Jane");
+			// create the users
+			/*Users tempUser1 = new Users("John", "John");
+			Users tempUser2 = new Users("Jane", "Jane");*/
 						
-			// add students to the course
-			/*tempCourse.addStudent(tempStudent1);
-			tempCourse.addStudent(tempStudent2);*/
+		
 			
-			// save the students
+			// save the users
 			System.out.println("\nSaving students ...");
-			session.save(tempUser1);
+			/*session.save(tempUser1);
 			session.save(tempUser2);
 			System.out.println("Saved students 1: " + tempUser1);
-			System.out.println("Saved students 2: " + tempUser2);
+			System.out.println("Saved students 2: " + tempUser2);*/
 			
 			// commit transaction
 			session.getTransaction().commit();
