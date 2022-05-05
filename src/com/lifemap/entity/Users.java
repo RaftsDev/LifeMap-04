@@ -31,7 +31,7 @@ public class Users {
 	
 
 	@OneToMany(fetch=FetchType.LAZY,
-			   mappedBy="users",
+			   mappedBy="user",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
 	private List<Branches> branches;

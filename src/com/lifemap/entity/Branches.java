@@ -1,6 +1,5 @@
 package com.lifemap.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,61 +10,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="branches")
-public class Branches{
-	
+@Table(name = "branches")
+public class Branches {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="parent_id")
+
+	@Column(name = "parent_id")
 	private int parentId;
-	
-	//@Column(name="for_tasks_id")
-	//private int forTasksId;
-	
-	@Column(name="name")
-	private String name;
-	
-	@Column(name="short_desc")
+
+	@Column(name = "short_desc")
 	private String shortDesc;
+
+	@Column(name = "long_desc")
+	private String longDesc;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinColumn(name = "user_id")
+	private Users user;
 	
-	@OneToOne(fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name="for_tasks_id")
-	private Tasks tasks;
-	
-	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(
-			name="users_branches",
-			joinColumns=@JoinColumn(name="branches_id"),
-			inverseJoinColumns=@JoinColumn(name="users_id")
-			)
-	private List<Users> users;
-	
-	
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="branch",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Tasks> tasks;
 
 	public Branches() {
-		
+
 	}
 
-	public Branches(int parentId, String name) {
+	public Branches(int parentId, String shortDesc) {
+	
 		this.parentId = parentId;
-		this.forTasksId = parentId;
-		this.name = name;
+		this.shortDesc = shortDesc;
 	}
 
 	public int getId() {
@@ -84,22 +69,6 @@ public class Branches{
 		this.parentId = parentId;
 	}
 
-	/*public int getForTasksId() {
-		return forTasksId;
-	}
-
-	public void setForTasksId(int forTasksId) {
-		this.forTasksId = forTasksId;
-	}*/
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getShortDesc() {
 		return shortDesc;
 	}
@@ -107,34 +76,29 @@ public class Branches{
 	public void setShortDesc(String shortDesc) {
 		this.shortDesc = shortDesc;
 	}
-	
-	
-	
 
-	public Tasks getTasks() {
-		return tasks;
+	public String getLongDesc() {
+		return longDesc;
 	}
 
-	public void setTasks(Tasks tasks) {
-		this.tasks = tasks;
+	public void setLongDesc(String longDesc) {
+		this.longDesc = longDesc;
 	}
 
-	public List<Users> getUsers() {
-		return users;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUsers(List<Users> users) {
-		this.users = users;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Branches [id=" + id + ", parentId=" + parentId + ", forTasksId=" + forTasksId + ", name=" + name
-				+ ", shortDesc=" + shortDesc + "]";
+		return "Branches [id=" + id + ", parentId=" + parentId + ", shortDesc=" + shortDesc + ", longDesc=" + longDesc
+				+ "]";
 	}
 	
 	
-	
-	
-	
+
 }

@@ -1,40 +1,42 @@
 package com.lifemap.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Tasks {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	
-	@Column(name="branch_id")
-	private int BranchId;
 
-	@Column(name="short_desc")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+
+	@Column(name = "short_desc")
 	private String shortDesc;
-	
-	@Column(name="long_desc")
+
+	@Column(name = "long_desc")
 	private String longDesc;
-	
-	@Column(name="urgency_level")
+
+	@Column(name = "urgency_level")
 	private byte urgencyLevel;
 
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinColumn(name = "branch_id")
+	private Branches branch;
+
 	public Tasks() {
-		
+
 	}
 
-	public Tasks(int branchId, String shortDesc) {
-		super();
-		BranchId = branchId;
+	public Tasks(String shortDesc) {
 		this.shortDesc = shortDesc;
 	}
 
@@ -44,14 +46,6 @@ public class Tasks {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getBranchId() {
-		return BranchId;
-	}
-
-	public void setBranchId(int branchId) {
-		BranchId = branchId;
 	}
 
 	public String getShortDesc() {
@@ -78,13 +72,20 @@ public class Tasks {
 		this.urgencyLevel = urgencyLevel;
 	}
 
+	public Branches getBranch() {
+		return branch;
+	}
+
+	public void setBranch(Branches branch) {
+		this.branch = branch;
+	}
+
 	@Override
 	public String toString() {
-		return "Tasks [id=" + id + ", BranchId=" + BranchId + ", shortDesc=" + shortDesc + ", longDesc=" + longDesc
-				+ ", urgencyLevel=" + urgencyLevel + "]";
+		return "Tasks [id=" + id + ", shortDesc=" + shortDesc + ", longDesc=" + longDesc + ", urgencyLevel="
+				+ urgencyLevel + "]";
 	}
 	
 	
-	
-	
+
 }
