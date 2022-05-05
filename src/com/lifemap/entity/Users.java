@@ -9,10 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="users")
@@ -30,32 +29,29 @@ public class Users {
 	private String pwd;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(
-			name="users_branches",
-			joinColumns=@JoinColumn(name="users_id"),
-			inverseJoinColumns=@JoinColumn(name="branches_id")
-			)	
+
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="users",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
 	private List<Branches> branches;
 
-	
+
+
 	public Users() {
 		
 	}
 
-	
 
-	public Users(String login, String pwd) {
-		super();
+
+	public Users(int id, String login, String pwd) {
+		
+		this.id = id;
 		this.login = login;
 		this.pwd = pwd;
 	}
 
 
-
-	
 
 	public int getId() {
 		return id;
@@ -97,6 +93,8 @@ public class Users {
 		return branches;
 	}
 
+
+
 	public void setBranches(List<Branches> branches) {
 		this.branches = branches;
 	}
@@ -107,7 +105,8 @@ public class Users {
 	public String toString() {
 		return "Users [id=" + id + ", login=" + login + ", pwd=" + pwd + "]";
 	}
-
+	
+	
 	
 	
 }
