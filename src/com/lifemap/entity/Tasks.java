@@ -26,7 +26,7 @@ public class Tasks {
 	private String longDesc;
 
 	@Column(name = "urgency_level")
-	private byte urgencyLevel;
+	private int urgencyLevel;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "branch_id")
@@ -36,9 +36,43 @@ public class Tasks {
 
 	}
 
-	public Tasks(String shortDesc) {
+	
+
+	public Tasks(Branches branch, String shortDesc ) {
+		this.branch = branch;
 		this.shortDesc = shortDesc;
+		
 	}
+
+
+	public Tasks(Branches branch, String shortDesc, String longDesc) {
+		this.branch = branch;
+		this.shortDesc = shortDesc;
+		this.longDesc = longDesc;
+	}
+
+	
+
+
+	public Tasks(Branches branch, String shortDesc, int urgencyLevel) {
+		
+		this.branch = branch;
+		this.shortDesc = shortDesc;
+		this.urgencyLevel = urgencyLevel;
+	}
+
+	
+
+
+	public Tasks(Branches branch, String shortDesc, String longDesc, int urgencyLevel) {
+		super();
+		this.branch = branch;
+		this.shortDesc = shortDesc;
+		this.longDesc = longDesc;
+		this.urgencyLevel = urgencyLevel;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -64,11 +98,11 @@ public class Tasks {
 		this.longDesc = longDesc;
 	}
 
-	public byte getUrgencyLevel() {
+	public int getUrgencyLevel() {
 		return urgencyLevel;
 	}
 
-	public void setUrgencyLevel(byte urgencyLevel) {
+	public void setUrgencyLevel(int urgencyLevel) {
 		this.urgencyLevel = urgencyLevel;
 	}
 
