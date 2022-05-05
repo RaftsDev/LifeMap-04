@@ -102,6 +102,16 @@ public class Branches {
 	public void setUser(Users user) {
 		this.user = user;
 	}
+	
+	
+
+	public List<Tasks> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Tasks> tasks) {
+		this.tasks = tasks;
+	}
 
 	@Override
 	public String toString() {
