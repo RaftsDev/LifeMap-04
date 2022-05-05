@@ -53,6 +53,15 @@ public class Branches {
 		this.shortDesc = shortDesc;
 		this.user = user;
 	}
+	
+	
+
+	public Branches(int parentId, String shortDesc, String longDesc, Users user) {
+		this.parentId = parentId;
+		this.shortDesc = shortDesc;
+		this.longDesc = longDesc;
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;
