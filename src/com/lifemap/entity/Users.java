@@ -44,9 +44,8 @@ public class Users {
 
 
 
-	public Users(int id, String login, String pwd) {
+	public Users(String login, String pwd) {
 		
-		this.id = id;
 		this.login = login;
 		this.pwd = pwd;
 	}
