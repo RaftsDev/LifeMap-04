@@ -47,10 +47,11 @@ public class Branches {
 
 	}
 
-	public Branches(int parentId, String shortDesc) {
+	public Branches(int parentId, String shortDesc, Users user) {
 	
 		this.parentId = parentId;
 		this.shortDesc = shortDesc;
+		this.user = user;
 	}
 
 	public int getId() {
